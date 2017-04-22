@@ -1,14 +1,65 @@
-[gd_scene load_steps=3 format=1]
+[gd_scene load_steps=6 format=1]
 
 [ext_resource path="res://Graphics/Tiles/fullTiles.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/tile.gd" type="Script" id=2]
 
+[sub_resource type="CanvasItemShader" id=1]
+
+_code = {
+"fragment": "uniform color modulate=color(0.2,0.4,1.0,0.8);
+
+vec4 col = tex(TEXTURE,UV);
+
+COLOR = col*modulate;",
+"fragment_ofs": 0,
+"light": "",
+"light_ofs": 0,
+"vertex": "",
+"vertex_ofs": 0
+}
+
+[sub_resource type="CanvasItemMaterial" id=2]
+
+shader/shader = SubResource( 1 )
+shader/shading_mode = 0
+shader_param/modulate = Color( 0.631373, 0.631373, 0.701961, 1 )
+
+[sub_resource type="ConvexPolygonShape2D" id=3]
+
+custom_solver_bias = 0.0
+points = Vector2Array( -20.0173, -19.5479, -0.0245819, -28.9685, 19.8635, -19.4432, 19.8635, 0.235516, -0.0245819, 10.2842, -20.0173, 0.235516 )
+
 [node name="Type_2" type="Sprite"]
 
+material/material = SubResource( 2 )
 texture = ExtResource( 1 )
 region = true
 region_rect = Rect2( 0, 216, 40, 54 )
 script/script = ExtResource( 2 )
 type = 2
+
+[node name="Area2D" type="Area2D" parent="."]
+
+input/pickable = true
+shapes/0/shape = SubResource( 3 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/0/trigger = false
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+
+build_mode = 0
+polygon = Vector2Array( -20.0173, -19.5479, -0.0245819, -28.9685, 19.8635, -19.4432, 19.8635, 0.235516, -0.0245819, 10.2842, -20.0173, 0.235516 )
+shape_range = Vector2( 0, 0 )
+trigger = false
+
+[connection signal="input_event" from="Area2D" to="." method="_on_Area2D_input_event"]
+
+[connection signal="mouse_enter" from="Area2D" to="." method="_on_Area2D_mouse_enter"]
+
+[connection signal="mouse_exit" from="Area2D" to="." method="_on_Area2D_mouse_exit"]
 
 
