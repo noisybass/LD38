@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=1]
+
+[ext_resource path="res://Scripts/map.gd" type="Script" id=1]
+
+[node name="Map" type="Node2D"]
+
+script/script = ExtResource( 1 )
+tile_w = 40
+tile_h = 54
+map_w = 14
+map_h = 14
+
+
