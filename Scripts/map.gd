@@ -20,6 +20,7 @@ func generate_map():
 	for i in range(map_w):
 		var row = []
 		for j in range(map_h):
+			randomize()
 			var node = tiles[randi()%4+0].instance()
 			node.set_map_position(i, j)
 			var offset = (i % 2 == 0) * tile_w/2
