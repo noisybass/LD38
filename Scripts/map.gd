@@ -30,4 +30,27 @@ func generate_map():
 			add_child(node)
 			node.set_global_pos(Vector2(x_init + node_x, y_init + node_y))
 		map.append(row)
+		
+func populated(row, column, type):
+	if (column >= 1):
+		populate(row, column-1, type)
+	if (column <= map_w-2):
+		populate(row, column+1, type)
 	
+	if (row >= 1):
+		populate(row-1, column, type)
+		if (column >= 1):
+			populate(row-1, column-1, type)
+		if (column <= map_w-2):
+			populate(row-1, column+1, type)
+			
+	if (row <= map_h-2):
+		populate(row+1, column, type)
+		if (column >= 1):
+			populate(row+1, column-1, type)
+		if (column <= map_w-2):
+			populate(row+1, column+1, type)
+			
+func populate(row, column, type):
+	if (type == map[row][column].type):
+		map[row][column].populate()

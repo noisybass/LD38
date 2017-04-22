@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=1]
 
-[ext_resource path="res://Graphics/Tiles/fullTiles.png" type="Texture" id=1]
+[ext_resource path="res://Graphics/Tiles/tileLava.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/tile.gd" type="Script" id=2]
 
 [sub_resource type="CanvasItemShader" id=1]
@@ -35,7 +35,6 @@ material/material = SubResource( 2 )
 transform/pos = Vector2( -3.27884, 0 )
 transform/scale = Vector2( 1.16394, 1 )
 texture = ExtResource( 1 )
-region = true
 region_rect = Rect2( 120, 54, 40, 54 )
 script/script = ExtResource( 2 )
 type = 0

@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=1]
 
-[ext_resource path="res://Graphics/Tiles/fullTiles.png" type="Texture" id=1]
+[ext_resource path="res://Graphics/Tiles/tileGrass.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/tile.gd" type="Script" id=2]
 
 [sub_resource type="CanvasItemShader" id=1]
@@ -33,7 +33,6 @@ points = Vector2Array( -19.808, -19.0245, -0.0245819, -28.3405, 20.0728, -19.129
 
 material/material = SubResource( 2 )
 texture = ExtResource( 1 )
-region = true
 region_rect = Rect2( 120, 162, 40, 54 )
 script/script = ExtResource( 2 )
 type = 1
