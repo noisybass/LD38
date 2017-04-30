@@ -7,10 +7,19 @@ export var map_w = 14
 export var map_h = 14
 var tiles = [preload("res://Scenes/Type_0.tscn"), preload("res://Scenes/Type_1.tscn"), preload("res://Scenes/Type_2.tscn"), preload("res://Scenes/Type_3.tscn")]
 var map = []
+var pending = []
+var frames_count = 0
+var frames_max = 10
+
+var end = false
+
+var game
 
 func _ready():
 	screen_size = get_viewport_rect().size
+	game = get_parent()
 	generate_map()
+	set_process(true)
 	
 func generate_map():
 	
@@ -31,26 +40,97 @@ func generate_map():
 			node.set_global_pos(Vector2(x_init + node_x, y_init + node_y))
 		map.append(row)
 		
-func populated(row, column, type):
-	if (column >= 1):
-		populate(row, column-1, type)
-	if (column <= map_w-2):
-		populate(row, column+1, type)
+func clicked(node):
+	if (game.movements > 0):
+		node.populate()
+		game.spend_movement()
+		if (game.movements == 0):
+			end = true
+		
+func populated(node, row, column, type):
+	get_parent().add_score(1)
 	
-	if (row >= 1):
-		populate(row-1, column, type)
-		if (column >= 1):
-			populate(row-1, column-1, type)
-		if (column <= map_w-2):
-			populate(row-1, column+1, type)
+	if (node.column >= 1):
+		populate(node.row, node.column-1, node)
+	if (node.column <= map_w-2):
+		populate(node.row, node.column+1, node)
+	
+	if (node.row >= 1):
+		populate(node.row-1, node.column, node)
+		if (node.column >= 1):
+			populate(node.row-1, node.column-1, node)
+		if (node.column <= map_w-2):
+			populate(node.row-1, node.column+1, node)
 			
-	if (row <= map_h-2):
-		populate(row+1, column, type)
-		if (column >= 1):
-			populate(row+1, column-1, type)
-		if (column <= map_w-2):
-			populate(row+1, column+1, type)
+	if (node.row <= map_h-2):
+		populate(node.row+1, node.column, node)
+		if (node.column >= 1):
+			populate(node.row+1, node.column-1, node)
+		if (node.column <= map_w-2):
+			populate(node.row+1, node.column+1, node)
 			
-func populate(row, column, type):
-	if (type == map[row][column].type):
-		map[row][column].populate()
+func populate(row, column, node):
+	var source_pos = node.get_global_pos()
+	var target_pos = map[row][column].get_global_pos()
+	if (source_pos.distance_to(target_pos) <= 50):
+		if (node.type == map[row][column].type):
+			pending.append(map[row][column])
+		else:
+			check(map[row][column], node.type)
+			
+func check(node, type):
+	if (!node.isPopulated):
+		var populated_count = 0
+		var source_pos = node.get_global_pos()
+		var target_pos
+		
+		if (node.column >= 1):
+			target_pos = map[node.row][node.column-1].get_global_pos()
+			if (map[node.row][node.column-1].isPopulated && source_pos.distance_to(target_pos) <= 50):
+				populated_count += 1
+		if (node.column <= map_w-2):
+			target_pos = map[node.row][node.column+1].get_global_pos()
+			if (map[node.row][node.column+1].isPopulated && source_pos.distance_to(target_pos) <= 50):
+				populated_count += 1
+		
+		if (node.row >= 1):
+			target_pos = map[node.row-1][node.column].get_global_pos()
+			if (map[node.row-1][node.column].isPopulated && source_pos.distance_to(target_pos) <= 50):
+				populated_count += 1
+			if (node.column >= 1):
+				target_pos = map[node.row-1][node.column-1].get_global_pos()
+				if (map[node.row-1][node.column-1].isPopulated && source_pos.distance_to(target_pos) <= 50):
+					populated_count += 1
+			if (node.column <= map_w-2):
+				target_pos = map[node.row-1][node.column+1].get_global_pos()
+				if (map[node.row-1][node.column+1].isPopulated && source_pos.distance_to(target_pos) <= 50):
+					populated_count += 1
+				
+		if (node.row <= map_h-2):
+			target_pos = map[node.row+1][node.column].get_global_pos()
+			if (map[node.row+1][node.column].isPopulated && source_pos.distance_to(target_pos) <= 50):
+				populated_count += 1
+			if (node.column >= 1):
+				target_pos = map[node.row+1][node.column-1].get_global_pos()
+				if (map[node.row+1][node.column-1].isPopulated && source_pos.distance_to(target_pos) <= 50):
+					populated_count += 1
+			if (node.column <= map_w-2):
+				target_pos = map[node.row+1][node.column+1].get_global_pos()
+				if (map[node.row+1][node.column+1].isPopulated && source_pos.distance_to(target_pos) <= 50):
+					populated_count += 1
+					
+		if (populated_count >= 3):
+			node.change(type)
+			populate(node.row, node.column, node)
+		
+func _process(delta):
+	frames_count += 1;
+	if (frames_count == frames_max):
+		frames_count = 0
+		if (!pending.empty()):
+			var node = pending.back()
+			pending.pop_back()
+			node.populate()
+		elif (end):
+			end = false
+			get_parent().new_level()

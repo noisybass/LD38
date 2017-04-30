@@ -5,9 +5,9 @@
 [node name="Map" type="Node2D"]
 
 script/script = ExtResource( 1 )
-tile_w = 40
-tile_h = 54
-map_w = 14
-map_h = 14
+tile_w = 48
+tile_h = 66
+map_w = 10
+map_h = 10
 
 

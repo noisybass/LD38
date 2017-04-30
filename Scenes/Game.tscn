@@ -1,12 +1,380 @@
-[gd_scene load_steps=3 format=1]
+[gd_scene load_steps=16 format=1]
 
 [ext_resource path="res://Graphics/UI/background.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/Game.gd" type="Script" id=2]
+[ext_resource path="res://Graphics/Fonts/Market_Deco_16.fnt" type="BitmapFont" id=3]
+[ext_resource path="res://Graphics/Fonts/Market_Deco_24.fnt" type="BitmapFont" id=4]
+[ext_resource path="res://Graphics/Tiles/tileSand_tile.png" type="Texture" id=5]
+[ext_resource path="res://Graphics/Tiles/tileMagic_tile.png" type="Texture" id=6]
+[ext_resource path="res://Graphics/Tiles/tileGrass_tile.png" type="Texture" id=7]
+[ext_resource path="res://Graphics/Tiles/tileWater_tile.png" type="Texture" id=8]
+[ext_resource path="res://Graphics/Tiles/tileLava_tile.png" type="Texture" id=9]
+[ext_resource path="res://Graphics/UI/timer_back.png" type="Texture" id=10]
+[ext_resource path="res://Graphics/UI/timer.png" type="Texture" id=11]
+[ext_resource path="res://Graphics/UI/blue_button00.png" type="Texture" id=12]
+[ext_resource path="res://Graphics/UI/blue_button00_b.png" type="Texture" id=13]
+[ext_resource path="res://Graphics/UI/arrowLeft.png" type="Texture" id=14]
+
+[sub_resource type="Animation" id=1]
+
+resource/name = "add_score"
+length = 0.5
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect/scale")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0, 0.3, 0.5 ),
+"transitions": FloatArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1.1, 1.1 ), Vector2( 1, 1 ) ]
+}
 
 [node name="Game" type="Sprite"]
 
+transform/pos = Vector2( 0.440125, 0.677948 )
+z/z = -2
 texture = ExtResource( 1 )
 centered = false
 script/script = ExtResource( 2 )
+base_score = 10
+delta_score = 5
+base_movements = 6
+delta_movements = 1
+
+[node name="Score" type="Label" parent="."]
+
+editor/display_folded = true
+rect/scale = Vector2( 1.1, 1.1 )
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 24.0
+margin/top = 117.0
+margin/right = 92.0
+margin/bottom = 135.0
+custom_fonts/font = ExtResource( 3 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+text = "Score: 0 "
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Score"]
+
+playback/process_mode = 1
+playback/default_blend_time = 0.0
+root/root = NodePath("..")
+anims/add_score = SubResource( 1 )
+playback/active = true
+playback/speed = 1.0
+blend_times = [  ]
+autoplay = ""
+
+[node name="Total Score" type="Label" parent="."]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 24.0
+margin/top = 88.0
+margin/right = 92.0
+margin/bottom = 106.0
+custom_fonts/font = ExtResource( 3 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+text = "Total Score: 0 "
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Beat" type="Label" parent="."]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 391.0
+margin/top = 20.0
+margin/right = 620.0
+margin/bottom = 46.0
+custom_fonts/font = ExtResource( 4 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+text = "Reach 50 Points"
+align = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Level" type="Node2D" parent="."]
+
+editor/display_folded = true
+transform/pos = Vector2( 47.3045, 45.8414 )
+
+[node name="Line" type="Node2D" parent="Level"]
+
+editor/display_folded = true
+
+[node name="Sprite" type="Sprite" parent="Level/Line"]
+
+transform/pos = Vector2( -26.5362, 10.2466 )
+transform/scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 5 )
+
+[node name="Sprite6" type="Sprite" parent="Level/Line"]
+
+transform/pos = Vector2( 0.588192, 18.2929 )
+transform/scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 5 )
+
+[node name="Sprite1" type="Sprite" parent="Level/Line"]
+
+transform/pos = Vector2( -10.3276, 18.1083 )
+transform/scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 6 )
+
+[node name="Sprite8" type="Sprite" parent="Level/Line"]
+
+transform/pos = Vector2( 16.8123, 10.4535 )
+transform/scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 6 )
+
+[node name="Sprite9" type="Sprite" parent="Level/Line"]
+
+transform/pos = Vector2( 11.1291, 18.2243 )
+transform/scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 6 )
+
+[node name="Sprite2" type="Sprite" parent="Level/Line"]
+
+transform/pos = Vector2( -32.1408, 18.091 )
+transform/scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 7 )
+
+[node name="Sprite7" type="Sprite" parent="Level/Line"]
+
+transform/pos = Vector2( 5.89733, 10.3452 )
+transform/scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 7 )
+
+[node name="Sprite3" type="Sprite" parent="Level/Line"]
+
+transform/pos = Vector2( -15.8081, 10.3452 )
+transform/scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 8 )
+
+[node name="Sprite10" type="Sprite" parent="Level/Line"]
+
+transform/pos = Vector2( 22.234, 18.348 )
+transform/scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 8 )
+
+[node name="Sprite4" type="Sprite" parent="Level/Line"]
+
+transform/pos = Vector2( -21.245, 18.1685 )
+transform/scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 9 )
+
+[node name="Sprite11" type="Sprite" parent="Level/Line"]
+
+transform/pos = Vector2( -21.245, 18.1685 )
+transform/scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 9 )
+
+[node name="Sprite12" type="Sprite" parent="Level/Line"]
+
+transform/pos = Vector2( 27.7059, 10.4763 )
+transform/scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 9 )
+
+[node name="Sprite5" type="Sprite" parent="Level/Line"]
+
+transform/pos = Vector2( -4.90407, 10.4228 )
+transform/scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 9 )
+
+[node name="Line1" type="Node2D" parent="Level"]
+
+editor/display_folded = true
+transform/pos = Vector2( 65.4055, 0.291992 )
+
+[node name="Sprite" type="Sprite" parent="Level/Line1"]
+
+transform/pos = Vector2( -26.5362, 10.2466 )
+transform/scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 5 )
+
+[node name="Sprite6" type="Sprite" parent="Level/Line1"]
+
+transform/pos = Vector2( 0.588192, 18.2929 )
+transform/scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 5 )
+
+[node name="Sprite1" type="Sprite" parent="Level/Line1"]
+
+transform/pos = Vector2( -10.3276, 18.1083 )
+transform/scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 6 )
+
+[node name="Sprite8" type="Sprite" parent="Level/Line1"]
+
+transform/pos = Vector2( 16.8123, 10.4535 )
+transform/scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 6 )
+
+[node name="Sprite9" type="Sprite" parent="Level/Line1"]
+
+transform/pos = Vector2( 11.1291, 18.2243 )
+transform/scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 6 )
+
+[node name="Sprite2" type="Sprite" parent="Level/Line1"]
+
+transform/pos = Vector2( -32.1408, 18.091 )
+transform/scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 7 )
+
+[node name="Sprite7" type="Sprite" parent="Level/Line1"]
+
+transform/pos = Vector2( 5.89733, 10.3452 )
+transform/scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 7 )
+
+[node name="Sprite3" type="Sprite" parent="Level/Line1"]
+
+transform/pos = Vector2( -15.8081, 10.3452 )
+transform/scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 8 )
+
+[node name="Sprite10" type="Sprite" parent="Level/Line1"]
+
+transform/pos = Vector2( 22.234, 18.348 )
+transform/scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 8 )
+
+[node name="Sprite4" type="Sprite" parent="Level/Line1"]
+
+transform/pos = Vector2( -21.245, 18.1685 )
+transform/scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 9 )
+
+[node name="Sprite11" type="Sprite" parent="Level/Line1"]
+
+transform/pos = Vector2( -21.245, 18.1685 )
+transform/scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 9 )
+
+[node name="Sprite12" type="Sprite" parent="Level/Line1"]
+
+transform/pos = Vector2( 27.7059, 10.4763 )
+transform/scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 9 )
+
+[node name="Sprite5" type="Sprite" parent="Level/Line1"]
+
+transform/pos = Vector2( -4.90407, 10.4228 )
+transform/scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 9 )
+
+[node name="Label" type="Label" parent="Level"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = -22.0
+margin/top = -26.0
+margin/right = 59.0
+margin/bottom = 0.0
+custom_fonts/font = ExtResource( 4 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+text = "Level: 1"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Timer" type="Node2D" parent="."]
+
+editor/display_folded = true
+visibility/visible = false
+
+[node name="TimerBack" type="Sprite" parent="Timer"]
+
+transform/pos = Vector2( 503.631, 30 )
+texture = ExtResource( 10 )
+
+[node name="TimerProgress" type="Sprite" parent="Timer/TimerBack"]
+
+transform/pos = Vector2( -140, -7.5 )
+texture = ExtResource( 11 )
+centered = false
+
+[node name="Movements" type="Label" parent="."]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 384.0
+margin/top = 56.0
+margin/right = 618.0
+margin/bottom = 74.0
+custom_fonts/font = ExtResource( 3 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+text = "You can do 1 more movement"
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Menu" type="TextureButton" parent="."]
+
+editor/display_folded = true
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 20.0
+margin/top = 523.0
+margin/right = 125.0
+margin/bottom = 572.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+textures/normal = ExtResource( 12 )
+textures/pressed = ExtResource( 13 )
+params/resize_mode = 1
+params/stretch_mode = 0
+
+[node name="Label" type="Label" parent="Menu"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 45.0
+margin/top = 7.0
+margin/right = 96.0
+margin/bottom = 33.0
+custom_fonts/font = ExtResource( 4 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "Menu"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Sprite" type="Sprite" parent="Menu"]
+
+transform/pos = Vector2( 21.6313, 22.1963 )
+transform/scale = Vector2( 0.90525, 0.912148 )
+texture = ExtResource( 14 )
 
 

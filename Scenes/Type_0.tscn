@@ -33,7 +33,6 @@ points = Vector2Array( -19.9126, -18.6058, 0.0800934, -27.9218, 19.9681, -18.396
 
 material/material = SubResource( 2 )
 transform/pos = Vector2( -3.27884, 0 )
-transform/scale = Vector2( 1.16394, 1 )
 texture = ExtResource( 1 )
 region_rect = Rect2( 120, 54, 40, 54 )
 script/script = ExtResource( 2 )

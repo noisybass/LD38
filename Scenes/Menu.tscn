@@ -1,8 +1,19 @@
-[gd_scene load_steps=4 format=1]
+[gd_scene load_steps=15 format=1]
 
 [ext_resource path="res://Graphics/UI/background.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/Menu.gd" type="Script" id=2]
-[ext_resource path="res://Graphics/UI/glassPanel_projection.png" type="Texture" id=3]
+[ext_resource path="res://Graphics/UI/blue_button00.png" type="Texture" id=3]
+[ext_resource path="res://Graphics/UI/blue_button00_b.png" type="Texture" id=4]
+[ext_resource path="res://Graphics/Fonts/Market_Deco_48.fnt" type="BitmapFont" id=5]
+[ext_resource path="res://Graphics/UI/gamepad.png" type="Texture" id=6]
+[ext_resource path="res://Graphics/UI/green_button00.png" type="Texture" id=7]
+[ext_resource path="res://Graphics/UI/green_button00_b.png" type="Texture" id=8]
+[ext_resource path="res://Graphics/Fonts/Market_Deco_32.fnt" type="BitmapFont" id=9]
+[ext_resource path="res://Graphics/Characters/alienGreen_swim1.png" type="Texture" id=10]
+[ext_resource path="res://Graphics/Characters/alienPink_duck.png" type="Texture" id=11]
+[ext_resource path="res://Graphics/Characters/alienYellow_walk2.png" type="Texture" id=12]
+[ext_resource path="res://Graphics/Characters/alienBlue_stand.png" type="Texture" id=13]
+[ext_resource path="res://Graphics/UI/titile.png" type="Texture" id=14]
 
 [node name="Background" type="TextureFrame"]
 
@@ -10,29 +21,139 @@ focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 0.0
-margin/top = 0.0
-margin/right = 40.0
-margin/bottom = 40.0
+margin/left = 2.0
+margin/top = -2.0
+margin/right = 1026.0
+margin/bottom = 598.0
 texture = ExtResource( 1 )
 stretch_mode = 0
 script/script = ExtResource( 2 )
 
 [node name="Play" type="TextureButton" parent="."]
 
+editor/display_folded = true
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 448.0
-margin/top = 301.0
-margin/right = 556.0
-margin/bottom = 328.0
+margin/left = 616.0
+margin/top = 420.0
+margin/right = 816.0
+margin/bottom = 480.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
 textures/normal = ExtResource( 3 )
+textures/pressed = ExtResource( 4 )
+textures/hover = ExtResource( 4 )
 params/resize_mode = 1
-params/stretch_mode = 1
+params/stretch_mode = 0
+
+[node name="Label" type="Label" parent="Play"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 154.0
+margin/bottom = 60.0
+custom_fonts/font = ExtResource( 5 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "START"
+align = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Sprite" type="Sprite" parent="Play"]
+
+transform/pos = Vector2( 168.245, 26.3445 )
+transform/rot = 24.3589
+texture = ExtResource( 6 )
+
+[node name="Tutorial" type="TextureButton" parent="."]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 616.0
+margin/top = 495.0
+margin/right = 816.0
+margin/bottom = 555.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+textures/normal = ExtResource( 7 )
+textures/pressed = ExtResource( 8 )
+textures/hover = ExtResource( 8 )
+params/resize_mode = 1
+params/stretch_mode = 0
+
+[node name="Label" type="Label" parent="Tutorial"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 8.0
+margin/right = 206.0
+margin/bottom = 60.0
+custom_fonts/font = ExtResource( 9 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "TUTORIAL"
+align = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="MaxScore" type="Label" parent="."]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 566.0
+margin/top = 324.0
+margin/right = 866.0
+margin/bottom = 384.0
+custom_fonts/font = ExtResource( 5 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+text = "Highscore: 0"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Sprite" type="Sprite" parent="."]
+
+transform/pos = Vector2( 262.297, 425.064 )
+transform/scale = Vector2( -1, 1 )
+texture = ExtResource( 10 )
+
+[node name="Sprite1" type="Sprite" parent="."]
+
+transform/pos = Vector2( 347.215, 436.342 )
+texture = ExtResource( 11 )
+
+[node name="Sprite2" type="Sprite" parent="."]
+
+transform/pos = Vector2( 432.796, 418.43 )
+texture = ExtResource( 12 )
+
+[node name="Sprite3" type="Sprite" parent="."]
+
+transform/pos = Vector2( 179.369, 415.113 )
+transform/scale = Vector2( -1, 1 )
+texture = ExtResource( 13 )
+
+[node name="Sprite 2" type="Sprite" parent="."]
+
+transform/pos = Vector2( 509.24, 114.773 )
+transform/scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 14 )
 
 
